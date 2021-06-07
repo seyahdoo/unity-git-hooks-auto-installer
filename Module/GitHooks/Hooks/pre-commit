@@ -1,0 +1,21 @@
+#!/bin/sh
+
+cat <<\EOF
+Hooks: Pulling before commit
+EOF
+
+output=$(git pull)
+
+if (test $? -ne 0)
+then
+	echo "Will not commit because an error occured on pull."
+	exit 1
+fi
+
+if [[ ${output} != *"Already up to date."* ]];then
+    # output does not contain Already up to date.
+	echo "Will not commit because there is a commit that we did not pull before."
+	exit 1
+fi
+
+exit 0

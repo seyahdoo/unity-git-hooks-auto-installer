@@ -1,0 +1,11 @@
+#!/bin/sh
+
+echo "Deleting empty directories"
+find Assets -depth \
+    \( -type f -name ".DS_Store" -delete \) -or \
+    \( -type f -name "Thumbs.db" -delete \) -or \
+    \( -type f -name "Desktop.ini" -delete \) -or \
+    \( -type f -name "desktop.ini" -delete \) -or \
+    \( -type d -empty -exec echo "Removing: {}" \; -delete -exec rm -f "{}.meta" \; \)
+
+exit 0
